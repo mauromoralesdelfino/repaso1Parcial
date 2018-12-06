@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <CheckBox android:id="@+id/checkbox_ultimo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lo Ultimo"
+        />
+    <CheckBox android:id="@+id/checkbox_politica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Politica"
+        />
+    <CheckBox android:id="@+id/checkbox_economia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Economia"
+        />
+    <CheckBox android:id="@+id/checkbox_sociedad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sociedad"
+        />
+    <CheckBox android:id="@+id/checkbox_mundo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mundo"
+        />
+    <CheckBox android:id="@+id/checkbox_Tecnoloagia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tecnologia"
+        />
+
+
+</LinearLayout>

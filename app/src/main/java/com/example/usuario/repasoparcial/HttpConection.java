@@ -1,0 +1,144 @@
+package com.example.usuario.repasoparcial;
+
+import android.util.Log;
+
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+
+/**
+ * Created by alumno on 11/05/2017.
+ */
+
+public class HttpConection {
+
+    public HttpConection(String metodo) {
+        this.metodo = metodo;
+    }
+
+    private String metodo;
+
+    public JSONObject getDatos() {
+        return datos;
+    }
+
+    public void setDatos(JSONObject datos) {
+        this.datos = datos;
+    }
+
+    private JSONObject datos;
+    private String Header;
+
+
+
+    public byte[] getBytesData(String strUrl) throws IOException {
+        Log.d("http", strUrl);
+        URL url = new URL(strUrl);
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+        urlConnection.setRequestMethod(this.metodo);
+        urlConnection.connect();
+        int response = urlConnection.getResponseCode();
+        //Log.d("http", "Response code:" + response);
+        if(response==200) {
+            InputStream is = urlConnection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length = 0;
+            while ((length = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, length);
+            }
+            is.close();
+            return baos.toByteArray();
+        }
+        else
+            throw new IOException();
+    }
+
+    public String getStringData(String strUrl) throws IOException {
+        Log.d("http", strUrl);
+        URL url = new URL(strUrl);
+        //URL url = new URL("http://192.168.2.231:8080/Productos.xml");
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+        urlConnection.setRequestMethod(this.metodo);
+        if (this.metodo == "POST"){
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Content-Type","application/json");
+            urlConnection.setRequestProperty("Host", "android.schoolportal.gr");
+
+            OutputStream os = urlConnection.getOutputStream();
+            byte[] outputInBytes = this.datos.toString().getBytes("UTF-8");
+            os.write( outputInBytes );
+            Log.d("HC",this.datos.toString());
+            os.close();
+        } else {
+            urlConnection.connect();
+        }
+        int response = urlConnection.getResponseCode();
+      //  Log.d("http", "Response code:" + response);
+        if(response==200) {
+            InputStream is = urlConnection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length = 0;
+            while ((length = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, length);
+            }
+            is.close();
+            return new String( baos.toByteArray(),"UTF-8");
+            /**/
+
+        }
+        else
+            throw new IOException();
+    }
+
+    public String Metodo(String strUrl) throws IOException {
+        //Log.d("Hola","Worker");
+        URL url = new URL(strUrl);
+        //URL url = new URL("http://192.168.2.231:8080/Productos.xml");
+        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+
+        urlConnection.setRequestMethod(this.metodo);
+        if (this.metodo == "POST"){
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestProperty("Content-Type","application/json");
+            urlConnection.setRequestProperty("Host", "android.schoolportal.gr");
+
+            OutputStream os = urlConnection.getOutputStream();
+            byte[] outputInBytes = this.datos.toString().getBytes("UTF-8");
+            os.write( outputInBytes );
+            Log.d("HC",this.datos.toString());
+            os.close();
+        } else {
+            urlConnection.connect();
+        }
+        int response = urlConnection.getResponseCode();
+       // Log.d("http", "Response code:" + response);
+        if(response==200) {
+            InputStream is = urlConnection.getInputStream();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            byte[] buffer = new byte[1024];
+            int length = 0;
+            while ((length = is.read(buffer)) != -1) {
+                baos.write(buffer, 0, length);
+            }
+            is.close();
+            return new String( baos.toByteArray(),"UTF-8");
+            /**/
+
+        }
+        else
+            throw new IOException();
+    }
+
+
+}
